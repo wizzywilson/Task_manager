@@ -8,7 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :encrypted_password, null: false, default: ""
       t.string :first_name
       t.string :last_name
-      t.integer :role
+      t.integer :role,default:1
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
@@ -23,13 +23,13 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       # t.inet     :current_sign_in_ip
       # t.inet     :last_sign_in_ip
 
-      ## Confirmable
+      # # Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at
       # t.datetime :confirmation_sent_at
       # t.string   :unconfirmed_email # Only if using reconfirmable
-
-      ## Lockable
+      #
+      # # Lockable
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
