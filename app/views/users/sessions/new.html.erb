@@ -2,9 +2,11 @@
   <h2>Log in</h2>
   <p style="display:none" >fvgfc</p>
   <%= form_for(resource, as: resource_name, url: sign_in_url, method: :post) do |f| %>
-  <% flash.each do |key, value| %>
-         <div class="alert alert-<%= key %>"><%= value %></div>
-       <% end %>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+
     <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
