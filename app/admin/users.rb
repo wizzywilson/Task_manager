@@ -4,7 +4,9 @@ ActiveAdmin.register User do
   index do
     selectable_column
     id_column
-    column :email
+    column :email, sortable: :email do |user|
+      user.email
+  end
     column :first_name
     column :last_name
     column :role
@@ -27,6 +29,17 @@ ActiveAdmin.register User do
       f.input :role
     end
     f.actions
+  end
+
+  show do
+    attributes_table do
+      row :first_name
+      row :last_name
+      row :email
+      row :role
+      row :created_at
+      row :updated_at
+    end
   end
 
 end
