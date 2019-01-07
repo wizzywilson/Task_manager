@@ -5,6 +5,10 @@ class User < ApplicationRecord
   before_validation :generate_password, on: :create
   after_create :send_password, on: :create
 
+  has_many :project_users, dependent: :destroy
+  has_many :projects, through: :project_users
+  # has_many :project_users, :foreign_key => "user", :class_name => "ProjectUser"
+
   private
 
   # For Generating Random password

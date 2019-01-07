@@ -15,13 +15,10 @@ class ApplicationController < ActionController::Base
           redirect_to admin_root_path
         end
       elsif current_user.employee?
-
         if request.original_fullpath == admin_root_path
           redirect_to root_path
         end
-
+      end
     end
   end
-
-end
 end
