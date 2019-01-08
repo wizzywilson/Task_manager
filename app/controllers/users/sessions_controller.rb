@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
       redirect_to request.referrer
     else
       super
-    end  
+    end
   end
 
   # DELETE /resource/sign_out
