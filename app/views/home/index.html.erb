@@ -47,29 +47,23 @@
           <li class="sidebar">
             <a>
               <i class="fa fa-book"></i>
-              <span>Dashboard</span>
+              <span>My Tasks</span>
             </a>
 
           </li>
           <li class="sidebar-dropdown">
-            <a href="#">
+            <a>
               <i class="fa fa-shopping-cart"></i>
-              <span>E-commerce</span>
-              <span class="badge badge-pill badge-danger">3</span>
+              <span>My Projects</span>
+
             </a>
             <div class="sidebar-submenu">
               <ul>
-                <li>
-                  <a href="#">Products
-
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Orders</a>
-                </li>
-                <li>
-                  <a href="#">Credit cart</a>
-                </li>
+                <% current_user.projects.each do |project| %>
+                  <li>
+                    <%= link_to  project.name,project_details_url(project:project), remote: true%>
+                  </li>
+                <% end %>
               </ul>
             </div>
           </li>
@@ -79,12 +73,7 @@
             <span>Settings</span>
           </li>
 
-          <li>
-            <a rel="nofollow" data-method="delete" href="/sign_out">
-              <i class="fas fa-sign-out-alt"></i>
-              <span>Sign out</span>
-            </a>
-          </li>
+
 
           <li>
             <a id="edit_user">
@@ -97,6 +86,12 @@
             <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/users">
               <i class="fas fa-trash-alt"></i>
               <span>Cancel account</span>
+            </a>
+          </li>
+          <li>
+            <a rel="nofollow" data-method="delete" href="/sign_out">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Sign out</span>
             </a>
           </li>
 

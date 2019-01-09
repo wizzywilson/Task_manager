@@ -13,4 +13,11 @@ class HomeController < ApplicationController
       format.js
     end
   end
+
+  def project_details
+    @project = Project.find(params[:project])
+    respond_to do |format|
+      format.js
+    end
+  end
 end
