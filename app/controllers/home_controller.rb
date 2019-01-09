@@ -16,6 +16,11 @@ class HomeController < ApplicationController
 
   def project_details
     @project = Project.find(params[:project])
+    @role  = ProjectUser.where(user_id:current_user.id,project_id:@project.id).first.designation
+    @task = Task.new
+
+    pm = @project.project_users.PM.pluck(:user_id)# gives current projects PM
+    @users = User.employee.where.not(id:pm)
     respond_to do |format|
       format.js
     end
