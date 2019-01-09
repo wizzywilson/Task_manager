@@ -4,8 +4,9 @@ Rails.application.routes.draw do
     get 'sign_in', to: 'users/sessions#new'
     post 'sign_in', to: 'users/sessions#create'
     delete 'sign_out', to: 'users/sessions#destroy'
+    get 'users/edit', to: 'home#user_edit', as: 'edit_user_registration'
+    patch 'users', to: 'users/registrations#update', as: 'user_registration'
   end
   ActiveAdmin.routes(self)
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to:"home#index"
+  root to: 'home#index'
 end

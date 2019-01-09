@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2019_01_08_140355) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "project_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "project_id"
+    t.bigint "user_id"
+    t.bigint "project_id"
     t.integer "assigned_by"
     t.integer "designation"
     t.datetime "created_at", null: false
@@ -30,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_140355) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer "project_user_id"
+    t.bigint "project_user_id"
     t.string "name"
     t.integer "status"
     t.datetime "start_date"

@@ -21,10 +21,10 @@
 
 jQuery(function ($) {
 
-  $("#sign_out").click(function () {
+  $("#edit_user").click(function () {
       $.ajax({
-          type: "DELETE",
-          url: "/sign_out",
+          type: "GET",
+          url: "/users/edit",
         })
   });
 

@@ -1,9 +1,3 @@
-
-
-<!-- <%= render :partial => 'home/navbar' %> -->
-
-
-
 <div class="page-wrapper chiller-theme toggled">
   <div id="show-sidebar" class="btn btn-sm btn-dark" >
     <i class="fas fa-bars"></i>
@@ -50,7 +44,7 @@
           <li class="header-menu">
             <span>Projects</span>
           </li>
-          <li class="sidebar-dropdown active">
+          <li class="sidebar">
             <a>
               <i class="fa fa-book"></i>
               <span>Dashboard</span>
@@ -84,83 +78,42 @@
           <li class="header-menu">
             <span>Settings</span>
           </li>
-          <li>
 
+          <li>
             <a rel="nofollow" data-method="delete" href="/sign_out">
-              <i class="fa fa-book"></i>
-              <span>sign_out</span>
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Sign out</span>
             </a>
+          </li>
 
-          </li>
           <li>
-            <a href="#">
-              <i class="fa fa-calendar"></i>
-              <span>Calendar</span>
+            <a id="edit_user">
+              <i class="fas fa-user"></i>
+              <span>Edit user</span>
             </a>
           </li>
+
           <li>
-            <a href="#">
-              <i class="fa fa-folder"></i>
-              <span>Examples</span>
+            <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/users">
+              <i class="fas fa-trash-alt"></i>
+              <span>Cancel account</span>
             </a>
           </li>
+
         </ul>
       </div>
       <!-- sidebar-menu  -->
     </div>
     <!-- sidebar-content  -->
-    <div class="sidebar-footer">
-      <a href="#">
-        <i class="fa fa-bell"></i>
-        <span class="badge badge-pill badge-warning notification">3</span>
-      </a>
-      <a href="#">
-        <i class="fa fa-envelope"></i>
-        <span class="badge badge-pill badge-success notification">7</span>
-      </a>
-      <a href="#">
-        <i class="fa fa-cog"></i>
-        <span class="badge-sonar"></span>
-      </a>
-      <a href="#">
-        <i class="fa fa-power-off"></i>
-      </a>
-    </div>
+
   </nav>
   <!-- sidebar-wrapper  -->
   <main class="page-content">
-    <div class="container-fluid">
-      <h2>Sidebar template</h2>
-      <hr>
-      <div class="row">
-        <div class="form-group col-md-12">
-          <p>This is a responsive sidebar template with dropdown menu based on bootstrap 4 framework.</p>
-          <p> You can find the complete code on <a href="https://github.com/azouaoui-med/pro-sidebar-template" target="_blank">
-            <iframe src="https://ghbtns.com/github-btn.html?user=azouaoui-med&repo=pro-sidebar-template&type=star&count=true&size=large"
-              Github</a>, it contains more themes and background image option</p>
-        </div>
-        <div class="form-group col-md-12">
-            frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
-          <iframe src="https://ghbtns.com/github-btn.html?user=azouaoui-med&repo=pro-sidebar-template&type=fork&count=true&size=large"
-            frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
-        </div>
-      </div>
-      <h5>More templates</h5>
-      <hr>
+    <div class="container-fluid" id="main_page">
 
-      <div class="row">
-        alt="Card image cap">
-        <div class="col-md-12">
-          <h6>Angular 2+ Version</h6>
-          <div style="width:13rem;">
-            <a href="https://github.com/azouaoui-med/angular-pro-sidebar" target="_blank" class="alert-link">
-              <img class="card-img-top" src="https://user-images.githubusercontent.com/25878302/50010090-d193f480-ffb8-11e8-98ef-3d7ffa6ddfe1.png"
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
 
   </main>
   <!-- page-content" -->
+
 </div>
