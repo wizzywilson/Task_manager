@@ -1,6 +1,8 @@
 class ProjectUser < ApplicationRecord
   belongs_to :user
   belongs_to :project
+  has_many :tasks
+  accepts_nested_attributes_for :tasks
   validates :user_id, uniqueness: { scope: :project_id }
   belongs_to :assigner, class_name: 'User', foreign_key: 'assigned_by'
   enum designation: [:PM,:DEV]

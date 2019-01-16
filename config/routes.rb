@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get 'users/edit', to: 'home#user_edit', as: 'edit_user_registration'
     patch 'users', to: 'users/registrations#update', as: 'user_registration'
     get 'project_details', to: 'home#project_details'
+    post 'create_project_user_task', to: 'home#project_user_task'
     resources :tasks
   end
   ActiveAdmin.routes(self)

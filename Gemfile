@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'activeadmin_addons'
 gem "figaro"
+gem 'bootstrap-datepicker-rails'
 gem 'jquery-rails'
 ruby '2.4.0'
 gem 'devise'
@@ -13,7 +14,7 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
 # gem 'pg'
-gem 'sqlite3'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

@@ -13,13 +13,18 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require bootstrap-datepicker
+//= require_tree .
 
 
 jQuery(function ($) {
+
+  $("#task_submit").click(function () {
+      $('#close_modal').click();
+  });
 
   $("#edit_user").click(function () {
       $.ajax({
