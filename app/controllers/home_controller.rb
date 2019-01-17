@@ -17,14 +17,15 @@ class HomeController < ApplicationController
   def project_user_task
     user_id = params[:project_user][:user_id]
     project_id = params[:project]
-    @project_user = ProjectUser.where(user_id: user_id,project_id: project_id).first
+    @project_user = ProjectUser.find_by(user_id: user_id, project_id: project_id)
     if @project_user.nil?
-      @project_user = ProjectUser.new(user_id: user_id, project_id: project_id, assigned_by: current_user.id, designation: :DEV )
+      @project_user = ProjectUser.new(user_id: user_id, project_id: project_id,
+                                      assigned_by: current_user.id,
+                                      designation: :DEV)
     end
     @project_user.tasks.build(task_params)
     @project_user.save
-    project_details
-
+    set_project_data
     respond_to do |format|
       format.js {render action: 'project_details'}
     end
@@ -32,28 +33,40 @@ class HomeController < ApplicationController
   end
 
   def project_details
-    @project = Project.find(params[:project])
-    pm = @project.project_users.PM.pluck(:user_id) # gives current projects PM
-    @users = User.employee.where.not(id:pm)
-
-
-    @role  = ProjectUser.where(user_id: current_user.id, project_id: @project.id).first.designation
-
-    @projectuser = ProjectUser.new
-    @projectuser.project_id = @project.id
-    @task = Task.new
-
-    if @project_user.nil?
+    set_project_data
 
     respond_to do |format|
       format.js
     end
   end
-  end
 
   private
 
+  def set_project_data
+    @project = Project.find(params[:project])
+    @users = users_for_assigning_task
+    @role = user_role
+
+    @projectuser = ProjectUser.new
+    @projectuser.project_id = @project.id
+    @tasks = project_tasks
+  end
+
+  def project_tasks
+    @project_employee_ids = @project.project_user_ids
+    Task.where(project_user_id: @project_employee_ids).includes(project_user: :user)
+  end
+
+  def users_for_assigning_task
+    pm = @project.project_users.PM.pluck(:user_id) # gives current projects PM
+    User.employee.where.not(id: pm)
+  end
+
+  def user_role
+    ProjectUser.where(user_id: current_user.id, project_id: @project.id).first.designation
+  end
+
   def task_params
-      params.require(:project_user).require(:task).permit(:name, :start_date,:end_date)
+    params.require(:project_user).require(:task).permit(:name, :start_date,:end_date)
   end
 end

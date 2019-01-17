@@ -24,7 +24,7 @@ Add Task
 
           <%= hidden_field_tag 'project', @project.id %>
 
-          <%= f.fields_for @task do |ff| %>
+          <%= f.fields_for Task.new do |ff| %>
 
             <div class="field form-group">
               <%= f.label :name %><br />
