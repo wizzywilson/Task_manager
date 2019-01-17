@@ -7,41 +7,73 @@ Add Task
 <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+
       <div class="modal-body">
 
 
-        <%= form_for(@task, url: tasks_path, html: { method: :create }) do |f| %>
+        <%= form_for(@projectuser, url: create_project_user_task_path, remote: true, html: { method: :post} ) do |f| %>
 
-          <div class="field form-group">
-            <%= f.label :name %><br />
-            <%= f.text_field :name, autofocus: true,class:"form-control" %>
-          </div>
-
-          <select id="template-example">
+<div class="field form-group">
+  <%= f.label :user_id %><br />
+          <select class="myselect form-control" name="project_user[user_id]" style="width:500px;">
             <% @users.each do |user| %>
-              <option value="<%= user.id %>" ><%= user.first_name %></option>
+              <option value="<%= user.id %>"><%= user.email %></option>
             <% end %>
           </select>
+        </div>
+
+          <%= hidden_field_tag 'project', @project.id %>
+
+          <%= f.fields_for Task.new do |ff| %>
+
+            <div class="field form-group">
+              <%= f.label :name %><br />
+              <%= ff.text_field :name, autofocus: true,class:"form-control" %>
+            </div>
+
+            <div class="field form-group">
+              <%= f.label :start_date %><br />
+              <%= ff.text_field :start_date, 'data-provide':'datepicker',class:"form-control"  %>
+            </div>
+
+            <div class="field form-group">
+              <%= f.label :end_date %><br />
+              <%= ff.text_field :end_date, 'data-provide':'datepicker',class:"form-control"  %>
+            </div>
 
 
+
+          <% end %>
 
           <div class="actions">
-            <%= f.submit class:"btn btn-primary" %>
+            <%= f.submit 'Submit', class:"btn btn-primary", id:"task_submit" %>
           </div>
         <% end %>
 
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+      $(".myselect").select2();
+      $(document).ready(function(){
+  $('.datepicker').datepicker();
+  $("#task_submit").click(function () {
+      $('#close_modal').click();
+  });
+
+});
+</script>
