@@ -32,6 +32,12 @@ Add Task
             </div>
 
             <div class="field form-group">
+              <%= f.label :status %><br />
+              <%= ff.select :status, options_for_select(['Not_Started','In_Progress','Done']), autofocus: true,class:"form-control" %>
+            </div>
+
+
+            <div class="field form-group">
               <%= f.label :start_date %><br />
               <%= ff.text_field :start_date, 'data-provide':'datepicker',class:"form-control"  %>
             </div>

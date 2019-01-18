@@ -24,10 +24,10 @@ class HomeController < ApplicationController
                                       designation: :DEV)
     end
     @project_user.tasks.build(task_params)
-    @project_user.save
+    @project_user.save!
     set_project_data
     respond_to do |format|
-      format.js {render action: 'project_details'}
+      format.js { render action: 'project_details'}
     end
 
   end
@@ -53,8 +53,7 @@ class HomeController < ApplicationController
   end
 
   def project_tasks
-    @project_employee_ids = @project.project_user_ids
-    Task.where(project_user_id: @project_employee_ids).includes(project_user: :user)
+    Task.joins(:project_user).where(project_users: { project_id: @project.id })
   end
 
   def users_for_assigning_task
@@ -67,6 +66,6 @@ class HomeController < ApplicationController
   end
 
   def task_params
-    params.require(:project_user).require(:task).permit(:name, :start_date,:end_date)
+    params.require(:project_user).require(:task).permit(:name, :start_date, :end_date, :status)
   end
 end

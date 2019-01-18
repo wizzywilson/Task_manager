@@ -4,8 +4,8 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.references :project_user
       t.string :name
       t.integer :status
-      t.datetime :start_date
-      t.datetime :end_date
+      t.string :start_date,default: 'Not Assigned'
+      t.string :end_date,default: 'Not Assigned'
       t.timestamps
     end
   end
