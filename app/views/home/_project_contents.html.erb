@@ -9,6 +9,8 @@
       <th scope="col">Name</th>
       <th scope="col">Assigned to</th>
       <th scope="col">Assigned by</th>
+      <th scope="col">Designation</th>
+      <th scope="col">Status</th>
       <th scope="col">Start Date</th>
       <th scope="col">End Date</th>
 
@@ -23,7 +25,9 @@
         <td><%= task.name %></td>
         <td><%= task.project_user.user.email %></td>
         <td><%= task.project_user.assigner.email %></td>
-        <td><%= task.start_date%></td>
+        <td><%= task.project_user.designation %></td>
+        <td><%= task.status %></td>
+        <td><%= task.start_date %></td>
         <td><%= task.end_date%></td>
       </tr>
     <% end %>
