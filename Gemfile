@@ -14,7 +14,7 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
 # gem 'pg'
-gem 'pg'
+gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -45,7 +45,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution and get a   console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 

@@ -14,6 +14,15 @@ class HomeController < ApplicationController
     end
   end
 
+def show_project_tasks
+  @project = Project.find(params[:project])
+  @tasks =  Task.where(project_user_id: ProjectUser.particular_project_user(current_user.id,@project.id))
+end
+
+  def my_tasks
+    @projects = current_user.projects
+  end
+
   def project_user_task
     user_id = params[:project_user][:user_id]
     project_id = params[:project]

@@ -39,7 +39,7 @@ controller do
          if !data.include? id
            project.project_users.build(user_id: id,assigned_by:current_user.id, designation: "PM").save
            data.push(id)
-           debugger
+           
          end
        end
     end

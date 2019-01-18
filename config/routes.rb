@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     patch 'users', to: 'users/registrations#update', as: 'user_registration'
     get 'project_details', to: 'home#project_details'
     post 'create_project_user_task', to: 'home#project_user_task'
+    get 'my_tasks', to: 'home#my_tasks'
+    get 'show_project_tasks', to: 'home#show_project_tasks'    
     resources :tasks
   end
   ActiveAdmin.routes(self)

@@ -1,0 +1,18 @@
+<div id="accordion">
+  <% @projects.each do |project| %>
+  <div class="card">
+    <div class="card-header" id="heading<%= project.id%>">
+      <h5 class="mb-0">
+        <button onclick="show_project_task('<%= project.id %>');" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= project.id%>" aria-expanded="true" aria-controls="collapseOne">
+          <%= project.name %>
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapse<%= project.id%>" class="collapse" aria-labelledby="heading<%= project.id%>" data-parent="#accordion">
+      <div class="card-body" id="project_<%= project.id %>">
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

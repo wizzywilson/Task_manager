@@ -6,5 +6,4 @@ validates :name, uniqueness: true
   # has_many :task,dependent: :destroy
   # validates :name, uniqueness: { message: "Please select a unique name" }
   accepts_nested_attributes_for :project_users, allow_destroy: true
-
 end

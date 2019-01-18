@@ -45,11 +45,9 @@
             <span>Projects</span>
           </li>
           <li class="sidebar">
-            <a>
-              <i class="fa fa-book"></i>
-              <span>My Tasks</span>
-            </a>
-
+            <%= link_to my_tasks_path, remote: true do %>
+            <i class="fa fa-book"></i><span>My Tasks</span>
+            <% end %>
           </li>
           <li class="sidebar-dropdown">
             <a>
@@ -61,7 +59,7 @@
               <ul>
                 <% current_user.projects.each do |project| %>
                   <li>
-                    <%= link_to  project.name,project_details_url(project:project), remote: true%>
+                    <%= link_to  project.name,project_details_url(project:project), remote: true %>
                   </li>
                 <% end %>
               </ul>

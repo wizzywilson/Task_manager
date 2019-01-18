@@ -66,3 +66,12 @@ $("#show-sidebar").click(function() {
 
 
 });
+
+
+function show_project_task(msg) {
+   $.ajax({
+     type:'GET',
+     url: '/show_project_tasks',
+     data: {'project': msg}
+});
+};
