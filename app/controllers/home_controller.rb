@@ -16,11 +16,18 @@ class HomeController < ApplicationController
 
 def show_project_tasks
   @project = Project.find(params[:project])
-  @tasks =  Task.where(project_user_id: ProjectUser.particular_project_user(current_user.id,@project.id))
+  @tasks =  ProjectUser.particular_project_user(current_user.id,@project.id).tasks
 end
 
   def my_tasks
     @projects = current_user.projects
+    @tasks={}
+    @projects.each do |project|
+      temp = project.project_users.find_by(user_id: current_user.id).tasks
+      if !temp.empty?
+        @tasks[project.name.to_sym] = temp
+    end
+    end
   end
 
   def project_user_task

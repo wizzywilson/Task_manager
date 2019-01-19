@@ -1,16 +1,28 @@
+<div class="jumbotron">
+  <h1 style="text-align:center"> My Tasks</h1>
+</div>
+<div class="">
+  <% if @tasks.empty? %>
+    <h3> No Pending Tasks</h3>
+  <% end %>
+</div>
 <div id="accordion">
-  <% @projects.each do |project| %>
+  <% project_names = @tasks.keys %>
+  <% project_names.each do |project_name| %>
   <div class="card">
-    <div class="card-header" id="heading<%= project.id%>">
+    <div class="card-header" id="heading<%= project_name%>">
       <h5 class="mb-0">
-        <button onclick="show_project_task('<%= project.id %>');" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= project.id%>" aria-expanded="true" aria-controls="collapseOne">
-          <%= project.name %>
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= project_name%>" aria-expanded="true" aria-controls="collapseOne">
+          <%= project_name %>
         </button>
       </h5>
     </div>
 
-    <div id="collapse<%= project.id%>" class="collapse" aria-labelledby="heading<%= project.id%>" data-parent="#accordion">
-      <div class="card-body" id="project_<%= project.id %>">
+    <div id="collapse<%= project_name%>" class="collapse" aria-labelledby="heading<%= project_name%>" data-parent="#accordion">
+      <div class="card-body" id="project_<%= project_name %>">
+
+        <%= render partial: "home/table", locals: { tasks: @tasks[project_name] } %>
+
       </div>
     </div>
   </div>
