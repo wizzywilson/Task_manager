@@ -52,13 +52,14 @@ Add Task
           <div class="actions">
             <%= f.submit 'Submit', class:"btn btn-primary", id:"task_submit" %>
           </div>
+
+
         <% end %>
 
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -75,9 +76,20 @@ Add Task
       $(".myselect").select2();
       $(document).ready(function(){
   $('.datepicker').datepicker();
-  $("#task_submit").click(function () {
-      $('#close_modal').click();
-  });
+
+  $("form")
+    .on("ajax:success", function(event, data, status, response) {
+      alert('dddddddddd')
+    })
+    .on("ajax:error", function(event, response, error) {
+      // logic to handle errors
+      alert(response);
+      alert(error);
+
+    })
+
 
 });
+
+
 </script>

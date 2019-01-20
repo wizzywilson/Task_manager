@@ -14,10 +14,6 @@ class HomeController < ApplicationController
     end
   end
 
-def show_project_tasks
-  @project = Project.find(params[:project])
-  @tasks =  ProjectUser.particular_project_user(current_user.id,@project.id).tasks
-end
 
   def my_tasks
     @projects = current_user.projects
@@ -41,10 +37,7 @@ end
     end
     @project_user.tasks.build(task_params)
     @project_user.save!
-    set_project_data
-    respond_to do |format|
-      format.js { render action: 'project_details'}
-    end
+
 
   end
 

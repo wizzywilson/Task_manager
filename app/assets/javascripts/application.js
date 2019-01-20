@@ -22,9 +22,7 @@
 
 jQuery(function ($) {
 
-  $("#task_submit").click(function () {
-      $('#close_modal').click();
-  });
+
 
   $("#edit_user").click(function () {
       $.ajax({
@@ -64,7 +62,6 @@ $("#show-sidebar").click(function() {
 
 
 
-
 });
 
 
@@ -74,4 +71,11 @@ function show_project_task(msg) {
      url: '/show_project_tasks',
      data: {'project': msg}
 });
+
+function add_tasks() {
+
+
+}
+
+
 };
