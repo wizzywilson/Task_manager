@@ -11,7 +11,7 @@ Add Task
       <div class="modal-body">
 
 
-        <%= form_for(@projectuser, url: create_project_user_task_path, remote: true, html: { method: :post} ) do |f| %>
+        <%= form_for(@projectuser, url: create_project_user_task_path, html: { method: :post, class: 'task_form'} ) do |f| %>
 
 <div class="field form-group">
   <%= f.label :user_id %><br />
@@ -25,6 +25,8 @@ Add Task
           <%= hidden_field_tag 'project', @project.id %>
 
           <%= f.fields_for Task.new do |ff| %>
+
+          <p id="task_error"></p>
 
             <div class="field form-group">
               <%= f.label :name %><br />
@@ -50,7 +52,7 @@ Add Task
           <% end %>
 
           <div class="actions">
-            <%= f.submit 'Submit', class:"btn btn-primary", id:"task_submit" %>
+            <%= f.submit 'Submit', class:"btn btn-primary", id:"task_submit", data: { disable_with: false } %>
           </div>
 
 
@@ -65,7 +67,9 @@ Add Task
   </div>
 </div>
 
-
+<button id = "test_button">
+  Test
+</button>
 
 
 
@@ -75,21 +79,28 @@ Add Task
 <script type="text/javascript">
       $(".myselect").select2();
       $(document).ready(function(){
-  $('.datepicker').datepicker();
-
-  $("form")
-    .on("ajax:success", function(event, data, status, response) {
-      alert('dddddddddd')
-    })
-    .on("ajax:error", function(event, response, error) {
-      // logic to handle errors
-      alert(response);
-      alert(error);
-
-    })
+        $('.datepicker').datepicker();
 
 
-});
+        $("#new_project_user").submit(function(event) {
+          var serializedData = $("#new_project_user").serializeArray();
+          event.preventDefault();
+          $.ajax({
+                 type: "POST",
+                 url: '/create_project_user_task',
+                 data: serializedData, // serializes the form's elements. {'test': test}
+                 success: function(response)
+                 {
+                   console.log(response);
+                   $('#close_modal').click();
+                   $("#new_project_user")[0].reset();
+                   
+                 }
+          });
+        });
+
+
+      });
 
 
 </script>

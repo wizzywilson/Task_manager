@@ -27,6 +27,7 @@ class HomeController < ApplicationController
   end
 
   def project_user_task
+
     user_id = params[:project_user][:user_id]
     project_id = params[:project]
     @project_user = ProjectUser.find_by(user_id: user_id, project_id: project_id)
@@ -36,7 +37,20 @@ class HomeController < ApplicationController
                                       designation: :DEV)
     end
     @project_user.tasks.build(task_params)
-    @project_user.save!
+
+    if @project_user.save
+      respond_to do |format|
+        format.js { render json: { added: true, status: 200, success: @project_user,task: task_params  } }
+      end
+    else
+      errors = @project_user.errors.messages.first
+      respond_to do |format|
+        format.js { render json: { added: true, status: 200, error: errors.join(' ') } }
+      end
+    end
+
+
+
 
 
   end

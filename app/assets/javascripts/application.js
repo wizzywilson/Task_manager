@@ -15,9 +15,10 @@
 //= require turbolinks
 //= require jquery3
 //= require popper
+//= require_tree .
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
-//= require_tree .
+
 
 
 jQuery(function ($) {
@@ -72,10 +73,7 @@ function show_project_task(msg) {
      data: {'project': msg}
 });
 
-function add_tasks() {
 
-
-}
 
 
 };
