@@ -17,7 +17,7 @@ class HomeController < ApplicationController
 
   def my_tasks
     @projects = current_user.projects
-    @tasks={}
+    @tasks = {}
     @projects.each do |project|
       temp = project.project_users.find_by(user_id: current_user.id).tasks
       if !temp.empty?
@@ -36,7 +36,27 @@ class HomeController < ApplicationController
                                       designation: :DEV)
     end
     @project_user.tasks.build(task_params)
-    @project_user.save!
+
+    if @project_user.save
+      project_user = @project_user.as_json(include:{user:{only: :email}, assigner:{only: :email}}, only: :designation )
+      task = task_params.as_json(only: %i[name status end_date start_date])
+      respond_to do |format|
+        format.js {
+          render json: {
+            status: 200 ,
+            task: task ,
+            project_user: project_user
+              } }
+      end
+    else
+      errors = @project_user.errors.messages.first
+      respond_to do |format|
+        format.js { render json: { status: 400, error: errors.join(' ') } }
+      end
+    end
+
+
+
 
 
   end
@@ -59,6 +79,7 @@ class HomeController < ApplicationController
     @projectuser = ProjectUser.new
     @projectuser.project_id = @project.id
     @tasks = project_tasks
+    @task = Task.new
   end
 
   def project_tasks
