@@ -26,7 +26,7 @@
       <td><%= task.status %></td>
       <td><%= task.start_date %></td>
       <td><%= task.end_date%></td>
-      <td> <a href="/tasks/:<%= task.id %>" data-method="patch" >edit</a> /comment</td>
+      <td> <a id=<%= task.id %> href="#" >edit</a> /comment</td>
 
     </tr>
   <% end %>
@@ -39,8 +39,32 @@
 
 
 
-$('tr td a').click(function(){
-  alert('ffff');
+$('tr td a').click(function(event){
+  event.preventDefault();
+
+  // $.ajax({
+  //        type: "POST",
+  //        url: '/create_project_user_task',
+  //        data: serializedData, // serializes the form's elements. {'test': test}
+  //        success: function(response)
+  //        {
+
+
+  $.ajax({
+    type: "GET",
+    url: "/tasks/"+this.id,
+    success: function(response)
+    {
+      var obj = JSON.parse(response);
+      $('#add_task').click();
+
+      $('[name="project_user[user_id]"]').val(obj["project_user"]["user_id"]).trigger('change.select2');
+      $('[name="project_user[task][name]"]').val(obj["task"]["name"]);
+      $('#project_user_task_status').val(obj["task"]["status"]).trigger('change');
+      $('#project_user_task_start_date').val(obj["task"]["start_date"]);
+      $('#project_user_task_end_date').val(obj["task"]["end_date"]);
+    }
+  });
 });
 
 </script>
