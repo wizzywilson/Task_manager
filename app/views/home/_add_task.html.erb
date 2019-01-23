@@ -24,28 +24,28 @@ Add Task
 
           <%= hidden_field_tag 'project', @project.id %>
 
-          <%= f.fields_for Task.new do |ff| %>
+          <%= f.fields_for @task do |ff| %>
 
           <p id="task_error"></p>
 
             <div class="field form-group">
-              <%= f.label :name %><br />
+              <%= ff.label :name %><br />
               <%= ff.text_field :name, autofocus: true,class:"form-control" %>
             </div>
 
             <div class="field form-group">
-              <%= f.label :status %><br />
+              <%= ff.label :status %><br />
               <%= ff.select :status, options_for_select(['Not_Started','In_Progress','Done']), autofocus: true,class:"form-control" %>
             </div>
 
 
             <div class="field form-group">
-              <%= f.label :start_date %><br />
+              <%= ff.label :start_date %><br />
               <%= ff.text_field :start_date, 'data-provide':'datepicker',class:"form-control"  %>
             </div>
 
             <div class="field form-group">
-              <%= f.label :end_date %><br />
+              <%= ff.label :end_date %><br />
               <%= ff.text_field :end_date, 'data-provide':'datepicker',class:"form-control"  %>
             </div>
 
@@ -91,10 +91,39 @@ Add Task
                  data: serializedData, // serializes the form's elements. {'test': test}
                  success: function(response)
                  {
-                   console.log(response);
-                   $('#close_modal').click();
-                   $("#new_project_user")[0].reset();
-                   
+
+                   var obj = JSON.parse(response);
+
+                   if(obj["status"]==200)
+                   {
+
+                       $('#close_modal').click();
+                       $("#new_project_user")[0].reset();
+
+                        var table = $('table')[0]
+                        var row = table.insertRow($('tr').length);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
+                        var cell8 = row.insertCell(7);
+
+                        cell1.innerHTML = $('tr').length-1;
+                        cell2.innerHTML = obj['task']['name'];
+                        cell3.innerHTML = obj["project_user"]["user"]["email"];
+                        cell4.innerHTML = obj["project_user"]["assigner"]["email"];
+                        cell5.innerHTML = obj["project_user"]["designation"];
+                        cell6.innerHTML = obj['task']['status'];
+                        cell7.innerHTML = obj['task']['start_date'];
+                        cell8.innerHTML = obj['task']['end_date'];
+                    }
+                    else if (obj["status"]==400) {
+                      $('#task_error').html(obj['error']);
+                    }
+
                  }
           });
         });

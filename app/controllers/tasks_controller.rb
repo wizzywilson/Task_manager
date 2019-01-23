@@ -3,4 +3,12 @@ class TasksController < ApplicationController
   def create
 
   end
+
+  def update
+    debugger
+    @task = Task.find(params[:id])
+    respond_to do |format|
+      format.js { render json: { task: @task } }
+    end
+  end
 end
