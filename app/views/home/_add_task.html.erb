@@ -52,6 +52,7 @@ Add Task
           <% end %>
 
           <div class="actions">
+            <button type="button" name="task_update" class="btn btn-primary" id="task_update" style="display:none;">Update</button>
             <%= f.submit 'Submit', class:"btn btn-primary", id:"task_submit", data: { disable_with: false } %>
           </div>
 
@@ -67,9 +68,7 @@ Add Task
   </div>
 </div>
 
-<button id = "test_button">
-  Test
-</button>
+
 
 
 
@@ -80,6 +79,32 @@ Add Task
       $(".myselect").select2();
       $(document).ready(function(){
         $('.datepicker').datepicker();
+
+        $('#task_update').click(function(event){
+          var serializedData = $('#new_project_user').serializeArray();
+          event.preventDefault();
+          $.ajax({
+            type: "PATCH",
+            url: '/tasks/'+this.name,
+            data: serializedData,
+            success: function(response)
+            {
+               $('#close_modal').click();
+              task = response.task
+              project_user = response.project_user
+
+            $('#row'+task.id+' td' )[0].innerHTML = task.name
+            $('#row'+task.id+' td' )[1].innerHTML = project_user.user.email
+            $('#row'+task.id+' td' )[2].innerHTML = project_user.assigner.email
+            $('#row'+task.id+' td' )[3].innerHTML = project_user.designation
+            $('#row'+task.id+' td' )[4].innerHTML = task.status
+            $('#row'+task.id+' td' )[5].innerHTML = task.start_date
+            $('#row'+task.id+' td' )[6].innerHTML = task.end_date
+
+            }
+          });
+
+        });
 
 
         $("#new_project_user").submit(function(event) {
