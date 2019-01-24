@@ -17,7 +17,7 @@
 
 
   <% tasks.each_with_index do |task, index| %>
-      <tr>
+      <tr id=row<%= task.id %> >
       <th scope="row"><%= index+1 %></th>
       <td><%= task.name %></td>
       <td><%= task.project_user.user.email %></td>
@@ -41,15 +41,6 @@
 
 $('tr td a').click(function(event){
   event.preventDefault();
-
-  // $.ajax({
-  //        type: "POST",
-  //        url: '/create_project_user_task',
-  //        data: serializedData, // serializes the form's elements. {'test': test}
-  //        success: function(response)
-  //        {
-
-
   $.ajax({
     type: "GET",
     url: "/tasks/"+this.id,
@@ -57,7 +48,9 @@ $('tr td a').click(function(event){
     {
       var obj = JSON.parse(response);
       $('#add_task').click();
-
+      $('#task_update').show();
+      $('#task_submit').hide();
+      $('#task_update').attr('name',obj["task"]["id"]);
       $('[name="project_user[user_id]"]').val(obj["project_user"]["user_id"]).trigger('change.select2');
       $('[name="project_user[task][name]"]').val(obj["task"]["name"]);
       $('#project_user_task_status').val(obj["task"]["status"]).trigger('change');
