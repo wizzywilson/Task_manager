@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 style="text-align:center"> Task Details</h1>
+  </div>
+  <table class="table table-bordered table-dark">
+    <tbody>
+      <tr>
+        <td>NAME :</td>
+        <td><%= @task.name %></td>
+      </tr>
+      <tr>
+        <td>STATUS :</td>
+        <td><%= @task.status %></td>
+      </tr>
+      <tr>
+        <td>ASSIGNED BY :</td>
+        <td> <%= @project_user.user.email %></td>
+      </tr>
+      <tr>
+        <td>ASSIGNED TO :</td>
+        <td><%= @project_user.assigner.email %></td>
+      </tr>
+      <tr>
+        <td>START AT :</td>
+        <td><%= @task.start_date %></td>
+      </tr>
+      <tr>
+        <td>FINISH AT :</td>
+        <td><%= @task.end_date %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

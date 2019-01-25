@@ -93,13 +93,13 @@ Add Task
               task = response.task
               project_user = response.project_user
 
-            $('#row'+task.id+' td' )[0].innerHTML = task.name
-            $('#row'+task.id+' td' )[1].innerHTML = project_user.user.email
-            $('#row'+task.id+' td' )[2].innerHTML = project_user.assigner.email
-            $('#row'+task.id+' td' )[3].innerHTML = project_user.designation
-            $('#row'+task.id+' td' )[4].innerHTML = task.status
-            $('#row'+task.id+' td' )[5].innerHTML = task.start_date
-            $('#row'+task.id+' td' )[6].innerHTML = task.end_date
+            $('#row'+task.id+' td' )[1].innerHTML = task.name
+            $('#row'+task.id+' td' )[2].innerHTML = project_user.user.email
+            $('#row'+task.id+' td' )[3].innerHTML = project_user.assigner.email
+            $('#row'+task.id+' td' )[4].innerHTML = project_user.designation
+            $('#row'+task.id+' td' )[5].innerHTML = task.status
+            $('#row'+task.id+' td' )[6].innerHTML = task.start_date
+            $('#row'+task.id+' td' )[7].innerHTML = task.end_date
 
             }
           });
@@ -111,13 +111,14 @@ Add Task
           var serializedData = $("#new_project_user").serializeArray();
           event.preventDefault();
           $.ajax({
-                 type: "POST",
                  url: '/create_project_user_task',
                  data: serializedData, // serializes the form's elements. {'test': test}
+                 type: "POST",
+                 dataType: "json",
                  success: function(response)
                  {
 
-                   var obj = JSON.parse(response);
+                   var obj = response;
 
                    if(obj["status"]==200)
                    {
@@ -127,6 +128,7 @@ Add Task
 
                         var table = $('table')[0]
                         var row = table.insertRow($('tr').length);
+                        row.id = "row"+obj['task']['id']
                         var cell1 = row.insertCell(0);
                         var cell2 = row.insertCell(1);
                         var cell3 = row.insertCell(2);
@@ -135,6 +137,7 @@ Add Task
                         var cell6 = row.insertCell(5);
                         var cell7 = row.insertCell(6);
                         var cell8 = row.insertCell(7);
+                        var cell9 = row.insertCell(8);
 
                         cell1.innerHTML = $('tr').length-1;
                         cell2.innerHTML = obj['task']['name'];
@@ -144,6 +147,8 @@ Add Task
                         cell6.innerHTML = obj['task']['status'];
                         cell7.innerHTML = obj['task']['start_date'];
                         cell8.innerHTML = obj['task']['end_date'];
+                        cell9.innerHTML = "<a class ='edit' id="+obj['task']['id']+" href='#' >edit</a> /<a class ='delete' id="+obj['task']['id']+" href='#' >delete</a>"
+
                     }
                     else if (obj["status"]==400) {
                       $('#task_error').html(obj['error']);

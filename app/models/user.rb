@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :projects, through: :project_users
   # has_many :project_users, :foreign_key => "user", :class_name => "ProjectUser"
 
+  mount_uploader :image, ImageUploader
+
   private
 
   # For Generating Random password

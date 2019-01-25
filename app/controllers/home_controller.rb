@@ -39,14 +39,14 @@ class HomeController < ApplicationController
 
     if @project_user.save
       project_user = @project_user.as_json(include: { user:{only: :email }, assigner:{ only: :email }}, only: :designation )
-      task = task_params.as_json(only: %i[name status end_date start_date])
+      task = Task.last.as_json(only: %i[id name status end_date start_date])
       respond_to do |format|
         format.js {
           render json: {
             status: 200,
             task: task,
             project_user: project_user
-          }
+          }.to_json
         }
       end
     else
