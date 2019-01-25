@@ -25,10 +25,16 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @project_user = @task.project_user
     respond_to do |format|
-      format.js { render json: { status: 200,
+      format.json { render json: { status: 200,
                                  task: @task,
-                                 project_user: @project_user } }
+                                 project_user: @project_user }.to_json }
+      format.js
     end
+  end
+
+  def destroy
+    Task.delete(params[:id])
+    render json: { status: 200, id: params[:id] }
   end
 
   private
@@ -45,4 +51,6 @@ class TasksController < ApplicationController
     params.require(:project_user).require(:task).permit(:name, :status,
                                                         :start_date, :end_date)
   end
+
+
 end
