@@ -12,8 +12,13 @@
       </div>
       <div class="sidebar-header">
         <div class="user-pic">
-          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-            alt="User picture">
+
+          <% if !current_user.image.thumb.url.nil? %>
+          <% image_tag current_user.image.thumb.url %>
+         <% end %>
+
+
+          <%= current_user.image.url.nil? ? image_tag('user.jpg') : image_tag(current_user.image.url(:thumb)) %> 
         </div>
         <div class="user-info">
           <span class="user-name"><%= current_user.first_name %>
