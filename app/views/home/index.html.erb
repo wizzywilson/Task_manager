@@ -1,3 +1,1 @@
- <% if !current_user.image.thumb.url.nil? %>
- <%= image_tag current_user.image.thumb.url %>
-<% end %>
+<%= image_tag current_user.profile_picture %>

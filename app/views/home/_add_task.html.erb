@@ -26,7 +26,7 @@ Add Task
 
           <%= f.fields_for @task do |ff| %>
 
-          <p id="task_error"></p>
+          <p style="color:red" id="task_name_error"></p>
 
             <div class="field form-group">
               <%= ff.label :name %><br />
@@ -38,6 +38,8 @@ Add Task
               <%= ff.select :status, options_for_select(['Not_Started','In_Progress','Done']), autofocus: true,class:"form-control" %>
             </div>
 
+
+<p style="color:red" id="task_date_error"></p>
 
             <div class="field form-group">
               <%= ff.label :start_date %><br />
@@ -92,7 +94,8 @@ Add Task
                $('#close_modal').click();
               task = response.task
               project_user = response.project_user
-
+              $("#task_name_error")[0].innerHTML=""
+              $("#task_date_error")[0].innerHTML=""
             $('#row'+task.id+' td' )[1].innerHTML = task.name
             $('#row'+task.id+' td' )[2].innerHTML = project_user.user.email
             $('#row'+task.id+' td' )[3].innerHTML = project_user.assigner.email
@@ -125,7 +128,8 @@ Add Task
 
                        $('#close_modal').click();
                        $("#new_project_user")[0].reset();
-
+$("#task_name_error")[0].innerHTML=""
+$("#task_date_error")[0].innerHTML=""
                         var table = $('table')[0]
                         var row = table.insertRow($('tr').length);
                         row.id = "row"+obj['task']['id']
@@ -151,7 +155,21 @@ Add Task
 
                     }
                     else if (obj["status"]==400) {
-                      $('#task_error').html(obj['error']);
+                      // $('#task_error').html(obj['error']);
+                      obj = obj.error
+                      for (var key in obj) {
+                        if (obj.hasOwnProperty(key)) {
+                          var val = obj[key];
+                          if(key=="tasks.name"){
+                            $("#task_name_error")[0].innerHTML=val;
+
+                          }
+                          else if (key=="tasks.date") {
+                            $("#task_date_error")[0].innerHTML=val;
+
+                          }
+                        }
+                        }
                     }
 
                  }

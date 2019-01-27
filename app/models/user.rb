@@ -9,14 +9,14 @@ class User < ApplicationRecord
   has_many :projects, through: :project_users
   # has_many :project_users, :foreign_key => "user", :class_name => "ProjectUser"
 
-  mount_uploader :image, ImageUploader
+  has_one_attached :profile_picture
 
 
-  validate :image_size_validation
-   
-    def image_size_validation
-      errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes
-    end
+  # validate :image_size_validation
+  #
+  #   def image_size_validation
+  #     errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes
+  #   end
 
   private
 

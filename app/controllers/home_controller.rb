@@ -50,9 +50,9 @@ class HomeController < ApplicationController
         }
       end
     else
-      errors = @project_user.errors.messages.first
+      errors = @project_user.errors
       respond_to do |format|
-        format.js { render json: { status: 400, error: errors.join(' ') } }
+        format.js { render json: { status: 400, error: errors }.to_json }
       end
     end
   end
