@@ -10,12 +10,9 @@
     <th scope="col">Start Date</th>
     <th scope="col">End Date</th>
     <th scope="col">Edit</th>
-
   </tr>
 </thead>
 <tbody>
-
-
   <% tasks.each_with_index do |task, index| %>
       <tr id=row<%= task.id %> >
       <td><%= index+1 %></td>
@@ -26,65 +23,9 @@
       <td><%= task.status %></td>
       <td><%= task.start_date %></td>
       <td><%= task.end_date%></td>
-      <td> <a class ="edit" id=<%= task.id %> href="#" >edit</a> /<a class ="delete" id=<%= task.id %> href="#" >delete</a>/<a class ="view" class="view" id=<%= task.id %> href="#" >view</a>   </td>
-
+      <td> <a class ="edit" id=<%= task.id %> href="#" >edit</a> /<a class ="delete" id=<%= task.id %> href="#" >delete</a>/<a class ="view" class="view" id=<%= task.id %> href="#" >view</a></td>
     </tr>
   <% end %>
 
 </tbody>
 </table>
-
-<script type="text/javascript">
-
-$('body').on('click','.delete',function(event){
-  event.preventDefault();
-  var result = confirm("Want to delete?");
-  if (result) {
-    $.ajax({
-      url: "/tasks/"+this.id,
-      dataType: "json",
-      type: "DELETE",
-      success: function(response)
-      {
-        $("#row"+response['id']).hide();
-      }
-    });
-  }
-
-});
-
-$('body').on('click','.view',function(event){
-  event.preventDefault();
-    $.ajax({
-      url: "/tasks/"+this.id,
-      dataType: "script",
-      type: "GET"
-    });
-
-
-});
-
-$('body').on('click','.edit',function(event){
-  event.preventDefault();
-  $.ajax({
-
-    url: "/tasks/"+this.id,
-    dataType: "json",
-    type: "GET",
-    success: function(response)
-    {
-      var obj = response;
-      $('#add_task').click();
-      $('#task_update').show();
-      $('#task_submit').hide();
-      $('#task_update').attr('name',obj["task"]["id"]);
-      $('[name="project_user[user_id]"]').val(obj["project_user"]["user_id"]).trigger('change.select2');
-      $('[name="project_user[task][name]"]').val(obj["task"]["name"]);
-      $('#project_user_task_status').val(obj["task"]["status"]).trigger('change');
-      $('#project_user_task_start_date').val(obj["task"]["start_date"]);
-      $('#project_user_task_end_date').val(obj["task"]["end_date"]);
-    }
-  });
-});
-
-</script>

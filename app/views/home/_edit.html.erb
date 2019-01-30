@@ -1,6 +1,3 @@
-
-
-
   <h3>Edit User</h3>
   <%= form_for(resource, url: user_registration_path, html: { method: :patch }) do |f| %>
     <%= devise_error_messages! %>
@@ -8,6 +5,12 @@
     <div class="field form-group">
       <%= f.label :profile_picture %><br />
       <%= f.file_field :profile_picture, autofocus: true,class:"form-control" %>
+      <% if current_user.profile_picture.attached? %>
+      <%=image_tag(current_user.profile_picture.variant(resize: "56x56")) %>
+      <%= link_to 'Remove', profile_picture_path,
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+                <% end %>
     </div>
 
     <div class="field form-group">

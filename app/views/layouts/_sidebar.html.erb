@@ -5,14 +5,18 @@
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a href="#">Task Manager</a>
+        <a>Task Manager</a>
         <div id="close-sidebar">
           <i class="fas fa-times"></i>
         </div>
       </div>
       <div class="sidebar-header">
         <div class="user-pic">
-          <%= image_tag('user.jpg') %>
+            <%= if current_user.profile_picture.attached?
+              link_to image_tag(current_user.profile_picture.variant(resize: "56x56")), current_user.profile_picture
+            else
+              image_tag('user.jpg')
+            end %>
         </div>
         <div class="user-info">
           <span class="user-name"><%= current_user.first_name %>
@@ -25,19 +29,6 @@
         </div>
       </div>
       <!-- sidebar-header  -->
-      <div class="sidebar-search">
-        <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search...">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- sidebar-search  -->
       <div class="sidebar-menu">
         <ul>
           <li class="header-menu">

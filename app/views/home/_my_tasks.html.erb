@@ -20,9 +20,7 @@
 
     <div id="collapse<%= project_name%>" class="collapse" aria-labelledby="heading<%= project_name%>" data-parent="#accordion">
       <div class="card-body" id="project_<%= project_name %>">
-
         <%= render partial: "home/table", locals: { tasks: @tasks[project_name] } %>
-
       </div>
     </div>
   </div>

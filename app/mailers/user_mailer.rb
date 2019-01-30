@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
+# UserMailer
 class UserMailer < ApplicationMailer
   default from: 'wilson@qburst.com'
 
-  def welcome(user,password)
+  def welcome(user)
     @user = user
-    @password = password
+    @password = user.password
     mail(to: @user.email)
   end
-
-
-
 end

@@ -1,12 +1,9 @@
-class HomeController < ApplicationController
+# frozen_string_literal: true
 
-  def index
-    if current_user.nil?
-      redirect_to sign_in_path
-    else
-      authenticate_current_user!
-    end
-  end
+# Home controller
+class HomeController < ApplicationController
+  before_action :authenticate_current_user!
+  def index; end
 
   def user_edit
     respond_to do |format|
@@ -14,22 +11,22 @@ class HomeController < ApplicationController
     end
   end
 
-
   def my_tasks
     @projects = current_user.projects
     @tasks = {}
+
     @projects.each do |project|
-      temp = project.project_users.find_by(user_id: current_user.id).tasks
-      if !temp.empty?
-        @tasks[project.name.to_sym] = temp
-    end
+      user_tasks = ProjectUser.get_project_user(current_user.id, project.id)
+                              .tasks
+      @tasks.merge!(project.name.to_sym => user_tasks) unless user_tasks.empty?
     end
   end
 
-  def project_user_task
+  def create_project_user_task
     user_id = params[:project_user][:user_id]
     project_id = params[:project]
-    @project_user = ProjectUser.find_by(user_id: user_id, project_id: project_id)
+    @project_user = ProjectUser.get_project_user(user_id, project_id) # scoped
+
     if @project_user.nil?
       @project_user = ProjectUser.new(user_id: user_id, project_id: project_id,
                                       assigned_by: current_user.id,
@@ -37,29 +34,29 @@ class HomeController < ApplicationController
     end
     @project_user.tasks.build(task_params)
 
+    send_create_response
+  end
+
+  def send_create_response
     if @project_user.save
-      project_user = @project_user.as_json(include: { user:{only: :email }, assigner:{ only: :email }}, only: :designation )
+      project_user = @project_user.as_json(
+        include: { user: { only: :email }, assigner: { only: :email } },
+        only: :designation
+      )
       task = Task.last.as_json(only: %i[id name status end_date start_date])
-      respond_to do |format|
-        format.js {
-          render json: {
-            status: 200,
-            task: task,
-            project_user: project_user
-          }.to_json
-        }
-      end
+      render json: { status: 200, task: task, project_user: project_user }
     else
-      errors = @project_user.errors
-      respond_to do |format|
-        format.js { render json: { status: 400, error: errors }.to_json }
-      end
+      render json: { status: 400, error: @project_user.errors }
     end
+  end
+
+  def profile_picture
+    current_user.profile_picture.purge
+    redirect_to root_path
   end
 
   def project_details
     set_project_data
-
     respond_to do |format|
       format.js
     end
@@ -88,10 +85,11 @@ class HomeController < ApplicationController
   end
 
   def user_role
-    ProjectUser.where(user_id: current_user.id, project_id: @project.id).first.designation
+    ProjectUser.get_project_user(current_user.id, @project.id).designation
   end
 
   def task_params
-    params.require(:project_user).require(:task).permit(:name, :start_date, :end_date, :status)
+    params.require(:project_user).require(:task).permit(:name, :start_date,
+                                                        :end_date, :status)
   end
 end

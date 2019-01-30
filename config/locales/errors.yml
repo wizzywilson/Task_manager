@@ -1,0 +1,5 @@
+en:
+  error:
+    date:
+      future: "Provide future dates."
+      range: 'Start date should be less than end date.'

@@ -7,6 +7,10 @@ gem 'jquery-rails'
 ruby '2.4.0'
 gem 'devise'
 gem "select2-rails"
+group :development do
+  gem "better_errors"
+  gem 'binding_of_caller'
+end
 gem 'activeadmin'
 gem 'sprockets-rails'
 gem 'mini_magick', '~> 4.3'
@@ -16,6 +20,7 @@ gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
 # gem 'pg'
 gem 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

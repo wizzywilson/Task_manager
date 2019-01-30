@@ -15,16 +15,12 @@
 //= require turbolinks
 //= require jquery3
 //= require popper
-//= require_tree .
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
+//= require_tree .
 
 
-
-    $(document).ready(function(){
-
-
-
+$(document).ready(function(){
 
   $("#edit_user").click(function () {
       $.ajax({
@@ -32,37 +28,6 @@
           url: "/users/edit",
         })
   });
-
-    $(".sidebar-dropdown > a").click(function() {
-  $(".sidebar-submenu").slideUp(200);
-  if (
-    $(this)
-      .parent()
-      .hasClass("active")
-  ) {
-    $(".sidebar-dropdown").removeClass("active");
-    $(this)
-      .parent()
-      .removeClass("active");
-  } else {
-    $(".sidebar-dropdown").removeClass("active");
-    $(this)
-      .next(".sidebar-submenu")
-      .slideDown(200);
-    $(this)
-      .parent()
-      .addClass("active");
-  }
-});
-
-$("#close-sidebar").click(function() {
-  $(".page-wrapper").removeClass("toggled")
-});
-$("#show-sidebar").click(function() {
-  $(".page-wrapper").addClass("toggled");
-});
-
-
 
 });
 
@@ -73,8 +38,5 @@ function show_project_task(msg) {
      url: '/show_project_tasks',
      data: {'project': msg}
 });
-
-
-
 
 };
