@@ -15,7 +15,6 @@ class Task < ApplicationRecord
     if start_date && end_date
       errors.add(:date, I18n.t('error.date.range')) if start_date > end_date
     end
-
   end
 
   private

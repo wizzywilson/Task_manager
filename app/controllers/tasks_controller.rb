@@ -36,11 +36,15 @@ class TasksController < ApplicationController
       }
       format.js
     end
+  rescue
+    render json: { status: 400, error: 'Task not found' }
   end
 
   def destroy
     Task.find(params[:id]).destroy
     render json: { status: 200, id: params[:id] }
+  rescue
+    render json: { status: 400, error: 'Task not found' }
   end
 
   private
