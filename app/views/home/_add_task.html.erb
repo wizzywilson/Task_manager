@@ -1,5 +1,8 @@
 <!-- Button trigger modal -->
-<button type="button" id="add_task"  class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter">
+<% @role == 'PM' ? style= 'display:block' : style = 'display:none' %>
+
+
+<button type="button" id="add_task" style=<%= style %> class="btn btn-primary " data-toggle="modal" data-target="#exampleModalCenter">
 Add Task
 </button>
 
@@ -11,7 +14,11 @@ Add Task
         <%= form_for(@projectuser, url: create_project_user_task_path, html: { method: :post, class: 'task_form'} ) do |f| %>
         <div class="field form-group">
           <%= f.label :user_id %><br />
+          <% if @role == 'PM' %>
             <select class="myselect form-control" name="project_user[user_id]" style="width:500px;">
+          <% else %>
+            <select class="myselect form-control" name="project_user[user_id]" style="width:500px;" disabled>
+          <% end %>
               <% @users.each do |user| %>
                 <option value="<%= user.id %>"><%= user.email %></option>
               <% end %>
@@ -23,7 +30,7 @@ Add Task
 
             <div class="field form-group">
               <%= ff.label :name %><br />
-              <%= ff.text_field :name, autofocus: true,class:"form-control" %>
+              <%= ff.text_field :name, autofocus: true,class:"form-control", disabled: @role == 'PM' ? false : true %>
             </div>
 
             <div class="field form-group">
@@ -31,19 +38,18 @@ Add Task
               <%= ff.select :status, options_for_select(['Not_Started','In_Progress','Done']), autofocus: true,class:"form-control" %>
             </div>
 
-
             <p style="color:red" id="task_start_date_error"></p>
 
             <div class="field form-group">
               <%= ff.label :start_date %><br />
-              <%= ff.text_field :start_date, 'data-provide':'datepicker',class:"form-control"  %>
+              <%= ff.text_field :start_date, 'data-provide':'datepicker',class:"form-control datepicker"  %>
             </div>
 
             <p style="color:red" id="task_end_date_error"></p>
 
             <div class="field form-group">
               <%= ff.label :end_date %><br />
-              <%= ff.text_field :end_date, 'data-provide':'datepicker',class:"form-control"  %>
+              <%= ff.text_field :end_date, 'data-provide':'datepicker',class:"form-control datepicker"  %>
             </div>
 
           <% end %>

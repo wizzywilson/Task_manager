@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :project_user do
-    user
+    association :user, role: :employee
     project
-    association :assigner, factory: :user, role: :admin
+    association :assigner, factory: :user
 
     trait :PM do
       designation :PM

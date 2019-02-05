@@ -6,6 +6,7 @@ class Task < ApplicationRecord
   belongs_to :project_user
   enum status: %I[Not_Started In_Progress Done]
   scope :order_by_date, -> { order(created_at: :asc) }
+  has_many :comments
   # validate :date_validation
 
 

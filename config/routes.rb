@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
   resources :tasks
+  resources :comments
   get 'my_tasks', to: 'home#my_tasks'
   post 'create_project_user_task', to: 'home#create_project_user_task'
   get 'project_details', to: 'home#project_details'

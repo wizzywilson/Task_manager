@@ -1,6 +1,5 @@
 $(document).ready(function () {
   $(".myselect").select2();
-
   $('body').on('submit',"#new_project_user",function(event) {
     $("#task_name_error")[0].innerHTML=""
     $("#task_start_date_error")[0].innerHTML=""
@@ -20,11 +19,10 @@ $(document).ready(function () {
 
              if(obj["status"]==200)
              {
-
                  $('#close_modal').click();
                  $("#new_project_user")[0].reset();
                   var table = $('table')[0]
-                  var row = table.insertRow($('tr').length);
+                  var row = table.insertRow($('[id^="row"]').length+1);
                   row.id = "row"+obj['task']['id']
                   var cell1 = row.insertCell(0);
                   var cell2 = row.insertCell(1);
@@ -36,7 +34,7 @@ $(document).ready(function () {
                   var cell8 = row.insertCell(7);
                   var cell9 = row.insertCell(8);
 
-                  cell1.innerHTML = $('tr').length-1;
+                  cell1.innerHTML = $('[id^="row"]').length;
                   cell2.innerHTML = obj['task']['name'];
                   cell3.innerHTML = obj["project_user"]["user"]["email"];
                   cell4.innerHTML = obj["project_user"]["assigner"]["email"];

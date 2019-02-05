@@ -4,6 +4,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   enum role: %I[admin employee]
+  has_many :comments
   before_validation :generate_password, on: :create
   after_create :send_password, on: :create
 

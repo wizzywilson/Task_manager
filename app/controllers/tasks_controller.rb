@@ -30,6 +30,7 @@ class TasksController < ApplicationController
   def show
     @task = Task.find(params[:id])
     @project_user = @task.project_user
+    @comments = @task.comments
     respond_to do |format|
       format.json { render json: { status: 200, task: @task,
                     project_user: @project_user }

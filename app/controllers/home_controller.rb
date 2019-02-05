@@ -34,7 +34,6 @@ class HomeController < ApplicationController
     end
     @project_user.tasks.build(task_params)
     send_create_response
-    debugger
   end
 
   def send_create_response

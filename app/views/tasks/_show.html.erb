@@ -31,3 +31,24 @@
     </tbody>
   </table>
 </div>
+
+<%= form_for(Comment.new, :html => { :onsubmit => "comment_submit()",class: 'mmm' }) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field" style="display: none;">
+    <%= f.label :task %><br>
+    <%= f.text_field :task, value: @task.id %>
+  </div>
+  <div class="field" style="display: none;">
+    <%= f.label :user %><br>
+    <%= f.text_field :user, value: current_user.id %>
+  </div>
+  <div class="actions">
+    <%= f.submit id: 'comment_create'%>
+  </div>
+<% end %>
+
+
+  <%= render partial: "comments/comment_show" %>

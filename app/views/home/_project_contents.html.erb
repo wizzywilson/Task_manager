@@ -4,6 +4,5 @@
 <div class="table-responsive">
   <%= render partial: "home/table", locals: { tasks: @tasks } %>
 </div>
-<% if @role == 'PM' %>
+
   <%= render partial: "home/add_task" %>
-<% end %>

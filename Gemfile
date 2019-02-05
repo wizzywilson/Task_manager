@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'activeadmin_addons'
 gem "figaro"
-gem 'bootstrap-datepicker-rails'
 gem 'jquery-rails'
 ruby '2.4.0'
 gem 'devise'

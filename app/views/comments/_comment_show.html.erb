@@ -1,0 +1,18 @@
+<table class="table table-hover table-dark comments">
+<thead>
+  <tr>
+    <th scope="col">Comment</th>
+    <th scope="col">Commented by</th>
+    <th scope="col">Commented At</th>
+  </tr>
+</thead>
+<tbody>
+  <% @comments.each_with_index do |comment, index| %>
+      <tr id=comment<%= comment.id %> >
+        <td><%= comment.name %></td>
+        <td><%= comment.user.email %></td>
+        <td><%= comment.created_at %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
